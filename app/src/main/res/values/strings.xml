@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">My_Info_Care</string>
+    <!-- Labels for EditTexts -->
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="identity_number">Identity Number</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+
+    <!-- Buttons -->
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+
+    <!-- Registration and login links -->
+    <string name="register_link">Not registered yet? Register here.</string>
+    <string name="password">Password</string>
+
+    <!-- Errors and notifications -->
+    <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_email">The email entered is not valid</string>
+    <string name="error_incorrect_password">The password entered is incorrect</string>
+    <string name="error_invalid_phone">The phone number entered is not valid</string>
+    <string name="error_user_exists">A user with these details already exists</string>
+    <string name="prompt_login_to_continue">Please log in to your account to continue using the app</string>
+</resources>
