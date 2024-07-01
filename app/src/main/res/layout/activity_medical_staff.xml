@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MedicalStaffActivity">
+
+    <EditText
+        android:id="@+id/editTextPatientIdentity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Patient Identity Number"
+        android:inputType="text" />
+
+    <Spinner
+        android:id="@+id/spinnerStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/status_array" />
+
+    <EditText
+        android:id="@+id/editTextRemarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Remarks"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="updatePatientStatus"
+        android:text="Update Patient Status" />
+
+    <EditText
+        android:id="@+id/editTextRoomTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Room Time"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextRoomEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Room Event"
+        android:inputType="text" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addRoomStatus"
+        android:text="Add Room Status" />
+
+    <ListView
+        android:id="@+id/listViewRoomStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="viewSchedule"
+        android:text="View Schedule" />
+</LinearLayout>

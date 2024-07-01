@@ -1,11 +1,12 @@
 package com.example.rame.my_info_care;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
@@ -15,29 +16,37 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         databaseHelper = new DatabaseHelper(this);
     }
 
-    public void openRegisterActivity(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
-
     public void loginUser(View view) {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
         if (databaseHelper.checkUser(email, password)) {
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            String userType = databaseHelper.getUserType(email);
+            String userIdentity = databaseHelper.getUserIdentity(email);
+            Log.d("LoginActivity", "User type: " + userType); // Debugging
+            Log.d("LoginActivity", "User identity: " + userIdentity); // Debugging
+            if (userType != null) {
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("USER_TYPE", userType);
+                intent.putExtra("USER_IDENTITY", userIdentity);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "User type not found", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, "Login failed. Invalid email or password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    public void goToRegister(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
 }

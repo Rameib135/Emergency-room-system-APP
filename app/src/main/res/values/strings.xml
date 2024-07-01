@@ -22,4 +22,16 @@
     <string name="error_invalid_phone">The phone number entered is not valid</string>
     <string name="error_user_exists">A user with these details already exists</string>
     <string name="prompt_login_to_continue">Please log in to your account to continue using the app</string>
+
+    <!-- הגדרת מערך הסטטוסים -->
+    <string-array name="status_array">
+        <item>Stable</item>
+        <item>Critical</item>
+        <item>Under Observation</item>
+        <item>Discharged</item>
+    </string-array>
+
+    <!-- Status and Remarks -->
+    <string name="status_text">Status: %1$s</string>
+    <string name="remarks_text">Remarks: %1$s</string>
 </resources>

@@ -1,20 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:background="#f5f5f5"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textViewPatientInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Patient Info will be displayed here" />
-
     <Button
-        android:id="@+id/buttonReadData"
+        android:id="@+id/buttonProceed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Read Patient Data" />
-</LinearLayout>
+        android:text="Proceed"
+        android:padding="16dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+</RelativeLayout>
