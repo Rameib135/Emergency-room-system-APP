@@ -145,6 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.insert(TABLE_ROOM_STATUS, null, values);
         return result != -1;
+
     }
 
 }
