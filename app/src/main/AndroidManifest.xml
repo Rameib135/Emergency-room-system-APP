@@ -17,6 +17,8 @@
         <activity android:name=".PatientActivity" android:exported="true"/>
         <activity android:name=".RegisterActivity" android:exported="true"/>
         <activity android:name=".ScheduleActivity" android:exported="true"/>
+        <activity android:name=".MessagesActivity"></activity>
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">

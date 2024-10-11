@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class MedicalStaffActivity extends AppCompatActivity {
     private EditText editTextPatientIdentity, editTextRemarks, editTextRoomTime, editTextRoomEvent;
     private Spinner spinnerStatus;
@@ -48,6 +49,7 @@ public class MedicalStaffActivity extends AppCompatActivity {
             return;
         }
 
+        // Call the updated method to update both the patient’s current status and status history
         boolean isUpdated = databaseHelper.updatePatientStatus(identityNumber, status, remarks);
 
         if (isUpdated) {
@@ -56,6 +58,7 @@ public class MedicalStaffActivity extends AppCompatActivity {
             Toast.makeText(this, "Failed to update patient status", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     public void addRoomStatus(View view) {
         String time = editTextRoomTime.getText().toString().trim();
@@ -97,4 +100,5 @@ public class MedicalStaffActivity extends AppCompatActivity {
 
         listViewRoomStatus.setAdapter(adapter);
     }
+
 }

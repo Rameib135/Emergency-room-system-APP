@@ -10,56 +10,75 @@
         android:id="@+id/editTextPatientIdentity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Patient Identity Number"
-        android:inputType="text" />
+        android:hint="@string/patient_identity_number"
+        android:inputType="text"
+        android:autofillHints="username"
+        android:padding="12dp"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black" />
 
     <Spinner
         android:id="@+id/spinnerStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/status_array" />
+        android:entries="@array/status_array"
+        android:padding="12dp"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/editTextRemarks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Remarks"
-        android:inputType="textMultiLine" />
+        android:hint="@string/remarks"
+        android:inputType="textMultiLine"
+        android:autofillHints="text"
+        android:padding="12dp"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="updatePatientStatus"
-        android:text="Update Patient Status" />
+        android:text="@string/update_patient_status" />
 
     <EditText
         android:id="@+id/editTextRoomTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Room Time"
-        android:inputType="text" />
+        android:hint="@string/room_time"
+        android:inputType="text"
+        android:autofillHints="time"
+        android:padding="12dp"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/editTextRoomEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Room Event"
-        android:inputType="text" />
+        android:hint="@string/room_event"
+        android:inputType="text"
+        android:autofillHints="event"
+        android:padding="12dp"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="addRoomStatus"
-        android:text="Add Room Status" />
+        android:text="@string/add_room_status" />
 
     <ListView
         android:id="@+id/listViewRoomStatus"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="181dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="viewSchedule"
-        android:text="View Schedule" />
+        android:text="@string/view_schedule" />
+
 </LinearLayout>

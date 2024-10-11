@@ -23,6 +23,17 @@
     <string name="error_user_exists">A user with these details already exists</string>
     <string name="prompt_login_to_continue">Please log in to your account to continue using the app</string>
 
+    <string name="patient_identity_number">Patient Identity Number</string>
+    <string name="remarks">Remarks</string>
+    <string name="update_patient_status">Update Patient Status</string>
+    <string name="room_time">Room Time</string>
+    <string name="room_event">Room Event</string>
+    <string name="add_room_status">Add Room Status</string>
+    <string name="view_schedule">View Schedule</string>
+    <string name="send_message">Send Message</string>
+
+
+
     <!-- הגדרת מערך הסטטוסים -->
     <string-array name="status_array">
         <item>Stable</item>
