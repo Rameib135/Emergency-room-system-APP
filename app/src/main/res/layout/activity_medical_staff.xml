@@ -1,84 +1,147 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/background_color"
     tools:context=".MedicalStaffActivity">
 
-    <EditText
-        android:id="@+id/editTextPatientIdentity"
+    <!-- Patient Identity Section -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/patient_identity_number"
-        android:inputType="text"
-        android:autofillHints="username"
-        android:padding="12dp"
-        android:minHeight="48dp"
-        android:textColor="@android:color/black" />
+        android:hint="Patient Identity Number"
+        app:boxBackgroundMode="outline"
+        android:paddingBottom="8dp">
 
-    <Spinner
-        android:id="@+id/spinnerStatus"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPatientIdentity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:autofillHints="username"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Status Dropdown -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/status_array"
-        android:padding="12dp"
-        android:minHeight="48dp" />
+        android:hint="Status"
+        app:boxBackgroundMode="outline"
+        android:paddingBottom="8dp">
 
-    <EditText
-        android:id="@+id/editTextRemarks"
+        <Spinner
+            android:id="@+id/spinnerStatus"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:entries="@array/status_array" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Remarks Section -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/remarks"
-        android:inputType="textMultiLine"
-        android:autofillHints="text"
-        android:padding="12dp"
-        android:minHeight="48dp"
-        android:textColor="@android:color/black" />
+        android:hint="Remarks"
+        app:boxBackgroundMode="outline"
+        android:paddingBottom="8dp">
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextRemarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Checkbox for Discharge Status -->
+    <CheckBox
+        android:id="@+id/checkboxDischarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discharged"
+        android:textColor="@color/black"
+        android:padding="10dp" />
+
+    <!-- Update Status Button -->
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="updatePatientStatus"
-        android:text="@string/update_patient_status" />
+        android:text="Update Patient Status"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:cornerRadius="8dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary" />
 
-    <EditText
-        android:id="@+id/editTextRoomTime"
+    <!-- Room Status Time and Event Input -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/room_time"
-        android:inputType="text"
-        android:autofillHints="time"
-        android:padding="12dp"
-        android:minHeight="48dp"
-        android:textColor="@android:color/black" />
+        android:hint="Room Time"
+        app:boxBackgroundMode="outline"
+        android:paddingBottom="8dp">
 
-    <EditText
-        android:id="@+id/editTextRoomEvent"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextRoomTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/room_event"
-        android:inputType="text"
-        android:autofillHints="event"
-        android:padding="12dp"
-        android:minHeight="48dp"
-        android:textColor="@android:color/black" />
+        android:hint="Room Event"
+        app:boxBackgroundMode="outline"
+        android:paddingBottom="8dp">
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextRoomEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Add Room Status Button -->
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="addRoomStatus"
-        android:text="@string/add_room_status" />
+        android:text="Add Room Status"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:cornerRadius="8dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorAccent" />
 
-    <ListView
-        android:id="@+id/listViewRoomStatus"
+    <!-- Room Status List -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="181dp" />
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        android:padding="8dp"
+        android:layout_marginTop="16dp">
 
-    <Button
+        <ListView
+            android:id="@+id/listViewRoomStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- View Schedule Button -->
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="viewSchedule"
-        android:text="@string/view_schedule" />
+        android:text="View Schedule"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:cornerRadius="8dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary" />
 
 </LinearLayout>

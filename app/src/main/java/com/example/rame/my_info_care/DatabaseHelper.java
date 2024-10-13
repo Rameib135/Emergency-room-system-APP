@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_TYPE = "userType";
     private static final String COLUMN_STATUS = "status";
     private static final String COLUMN_REMARKS = "remarks";
+    private static final String COLUMN_DISCHARGE_STATUS = "discharge_status"; // Add this column for discharge
 
     private static final String TABLE_ROOM_STATUS = "room_status";
     private static final String COLUMN_ROOM_ID = "_id";
@@ -34,32 +35,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + " ("
-                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COLUMN_FIRST_NAME + " TEXT, "
-                + COLUMN_LAST_NAME + " TEXT, "
-                + COLUMN_IDENTITY_NUMBER + " TEXT UNIQUE, "
-                + COLUMN_EMAIL + " TEXT UNIQUE, "
-                + COLUMN_PHONE + " TEXT, "
-                + COLUMN_PASSWORD + " TEXT, "
-                + COLUMN_USER_TYPE + " TEXT, "
-                + COLUMN_STATUS + " TEXT, "
-                + COLUMN_REMARKS + " TEXT)";
+        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_FIRST_NAME + " TEXT, " +
+                COLUMN_LAST_NAME + " TEXT, " +
+                COLUMN_IDENTITY_NUMBER + " TEXT UNIQUE, " +
+                COLUMN_EMAIL + " TEXT UNIQUE, " +
+                COLUMN_PHONE + " TEXT, " +
+                COLUMN_PASSWORD + " TEXT, " +
+                COLUMN_USER_TYPE + " TEXT, " +
+                COLUMN_STATUS + " TEXT, " +
+                COLUMN_REMARKS + " TEXT, " +
+                COLUMN_DISCHARGE_STATUS + " TEXT DEFAULT 'In Hospital')";  // Add discharge status column
         db.execSQL(CREATE_USERS_TABLE);
 
-        String CREATE_ROOM_STATUS_TABLE = "CREATE TABLE " + TABLE_ROOM_STATUS + " ("
-                + COLUMN_ROOM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COLUMN_ROOM_TIME + " TEXT, "
-                + COLUMN_ROOM_EVENT + " TEXT)";
+        String CREATE_ROOM_STATUS_TABLE = "CREATE TABLE " + TABLE_ROOM_STATUS + " (" +
+                COLUMN_ROOM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_ROOM_TIME + " TEXT, " +
+                COLUMN_ROOM_EVENT + " TEXT)";
         db.execSQL(CREATE_ROOM_STATUS_TABLE);
 
-        String CREATE_STATUS_HISTORY_TABLE = "CREATE TABLE status_history ("
-                + "status_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "patient_id INTEGER, "
-                + "status_text TEXT, "
-                + "remarks TEXT, "
-                + "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, "
-                + "FOREIGN KEY(patient_id) REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + "))";
+        String CREATE_STATUS_HISTORY_TABLE = "CREATE TABLE status_history (" +
+                "status_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "patient_id INTEGER, " +
+                "status_text TEXT, " +
+                "remarks TEXT, " +
+                "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                "FOREIGN KEY(patient_id) REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + "))";
         db.execSQL(CREATE_STATUS_HISTORY_TABLE);
     }
 
@@ -71,7 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // הוספת משתמש חדש
+    // Add new user to the database
     public boolean addUser(String firstName, String lastName, String identityNumber, String email, String phone, String password, String userType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -84,11 +86,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_TYPE, userType);
 
         long result = db.insert(TABLE_USERS, null, values);
-        db.close();  // סגירת מסד הנתונים
+        db.close();
         return result != -1;
     }
 
-    // בדיקה האם משתמש קיים לפי אימייל וסיסמה
+    // Check if a user exists based on email and password
     public boolean checkUser(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_EMAIL + " = ? AND " + COLUMN_PASSWORD + " = ?";
@@ -99,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-    // קבלת סוג המשתמש לפי אימייל
+    // Get user type by email
     public String getUserType(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + COLUMN_USER_TYPE + " FROM " + TABLE_USERS + " WHERE " + COLUMN_EMAIL + " = ?";
@@ -113,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return userType;
     }
 
-    // קבלת מספר תעודת זהות לפי אימייל
+    // Get user's identity number based on email
     public String getUserIdentity(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + COLUMN_IDENTITY_NUMBER + " FROM " + TABLE_USERS + " WHERE " + COLUMN_EMAIL + " = ?";
@@ -127,19 +129,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return userIdentity;
     }
 
-    // עדכון סטטוס מטופל והוספתו להיסטוריית הסטטוסים
-    public boolean updatePatientStatus(String identityNumber, String status, String remarks) {
+    // Retrieve status history based on patient ID
+    public Cursor getStatusHistory(int patientId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT status_text, remarks, timestamp FROM status_history WHERE patient_id = ? ORDER BY timestamp ASC",
+                new String[]{String.valueOf(patientId)});
+        return cursor;
+    }
+
+    // Get patient status based on identity number
+    public Cursor getPatientStatus(String identityNumber) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_STATUS + ", " + COLUMN_REMARKS + ", " + COLUMN_DISCHARGE_STATUS + " FROM " + TABLE_USERS + " WHERE " + COLUMN_IDENTITY_NUMBER + " = ?";
+        return db.rawQuery(query, new String[]{identityNumber});
+    }
+
+    // Get patient ID based on identity number
+    public Cursor getPatientIdByIdentity(String identityNumber) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_USERS, new String[]{COLUMN_ID}, COLUMN_IDENTITY_NUMBER + " = ?", new String[]{identityNumber}, null, null, null);
+    }
+
+    // Add room status to the room_status table
+    public boolean addRoomStatus(String time, String event) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.beginTransaction();  // טרנזקציה
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ROOM_TIME, time);
+        values.put(COLUMN_ROOM_EVENT, event);
+
+        long result = db.insert(TABLE_ROOM_STATUS, null, values);
+        db.close();
+        return result != -1;
+    }
+
+    // Check if a user exists by email
+    public boolean checkUserExists(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_EMAIL + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{email});
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
+    // Retrieve room status
+    public Cursor getRoomStatus() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_ROOM_STATUS, null);
+    }
+
+    // Update patient status, remarks, and discharge status
+    public boolean updatePatientStatus(String identityNumber, String status, String remarks, String dischargeStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
 
         try {
             ContentValues values = new ContentValues();
             values.put(COLUMN_STATUS, status);
             values.put(COLUMN_REMARKS, remarks);
+            values.put(COLUMN_DISCHARGE_STATUS, dischargeStatus);
 
             int result = db.update(TABLE_USERS, values, COLUMN_IDENTITY_NUMBER + " = ?", new String[]{identityNumber});
 
-            // הוספת הסטטוס להיסטוריה אם העדכון בוצע בהצלחה
             if (result > 0) {
                 Cursor cursor = getPatientIdByIdentity(identityNumber);
                 if (cursor != null && cursor.moveToFirst()) {
@@ -153,62 +205,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
             }
 
-            db.setTransactionSuccessful();  // אם הכל עבר בהצלחה
+            db.setTransactionSuccessful();
         } finally {
-            db.endTransaction();  // סיום טרנזקציה
+            db.endTransaction();
         }
 
-        db.close();  // סגירת מסד הנתונים
+        db.close();
         return true;
-    }
-
-    // שליפת היסטוריית סטטוסים לפי מזהה מטופל
-    public Cursor getStatusHistory(int patientId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT status_text, remarks, timestamp FROM status_history WHERE patient_id = ? ORDER BY timestamp ASC",
-                new String[]{String.valueOf(patientId)});
-        return cursor;
-    }
-
-    public Cursor getPatientStatus(String identityNumber) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + COLUMN_STATUS + ", " + COLUMN_REMARKS + " FROM " + TABLE_USERS + " WHERE " + COLUMN_IDENTITY_NUMBER + " = ?";
-        return db.rawQuery(query, new String[]{identityNumber});
-    }
-
-
-    // שליפת מזהה מטופל לפי תעודת זהות
-    public Cursor getPatientIdByIdentity(String identityNumber) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.query(TABLE_USERS, new String[]{COLUMN_ID}, COLUMN_IDENTITY_NUMBER + " = ?", new String[]{identityNumber}, null, null, null);
-    }
-
-    // הוספת סטטוס חדר
-    public boolean addRoomStatus(String time, String event) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_ROOM_TIME, time);
-        values.put(COLUMN_ROOM_EVENT, event);
-
-        long result = db.insert(TABLE_ROOM_STATUS, null, values);
-        db.close();
-        return result != -1;
-    }
-
-    // בדיקה אם משתמש קיים לפי אימייל
-    public boolean checkUserExists(String email) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_EMAIL + " = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{email});
-        boolean exists = (cursor.getCount() > 0);
-        cursor.close();
-        db.close();
-        return exists;
-    }
-
-    // שליפת סטטוס חדר
-    public Cursor getRoomStatus() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_ROOM_STATUS, null);
     }
 }

@@ -39,10 +39,25 @@
         <item>Stable</item>
         <item>Critical</item>
         <item>Under Observation</item>
-        <item>Discharged</item>
+
     </string-array>
 
     <!-- Status and Remarks -->
     <string name="status_text">Status: %1$s</string>
     <string name="remarks_text">Remarks: %1$s</string>
+
+
+    <string name="register_here">Register Here</string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Register Here</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+
+
+
+
+
+
+
+
 </resources>
