@@ -213,4 +213,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return true;
     }
+
+    // Function to get the number of patients currently in hospital
+    public int getRoomCount(String dischargeStatus) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT COUNT(*) FROM users WHERE userType = 'Patient' AND discharge_status = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{dischargeStatus});
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
+
+
+
+
+
+
+
 }
