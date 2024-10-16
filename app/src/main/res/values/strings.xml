@@ -52,12 +52,14 @@
     <string name="register_button">Register Here</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
-
-
-
-
-
-
-
+    <string name="critical_patients">Critical Patients</string>
+    <string name="medical_analytics">Medical Analytics</string>
+    <string name="stable_patients">Stable Patients</string>
+    <string name="under_observation_patients">Patients Under Observation</string>
+    <string name="discharged_patients">Discharged Patients</string>
+    <string name="critical_patients_image">Icon for critical patients</string>
+    <string name="stable_patients_image">Icon for stable patients</string>
+    <string name="under_observation_image">Icon for patients under observation</string>
+    <string name="discharged_patients_image">Icon for discharged patients</string>
 
 </resources>

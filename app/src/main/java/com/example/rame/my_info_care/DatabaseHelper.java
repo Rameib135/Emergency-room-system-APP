@@ -227,6 +227,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    // Method to get the count of patients based on their status
+    public int getPatientCountByStatus(String status) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT COUNT(*) FROM Users WHERE status = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{status});
+
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
+
+
+
 
 
 

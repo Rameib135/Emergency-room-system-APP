@@ -95,4 +95,10 @@ public class MedicalStaffActivity extends AppCompatActivity {
         Intent intent = new Intent(MedicalStaffActivity.this, ScheduleActivity.class);
         startActivity(intent);
     }
+
+    public void viewPatientAnalytics(View view) {
+        Intent intent = new Intent(this, MedicalAnalyticsActivity.class);
+        startActivity(intent);
+    }
+
 }

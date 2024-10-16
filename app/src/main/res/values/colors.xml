@@ -18,6 +18,13 @@
     <color name="textPrimary">#000000</color>
     <color name="textSecondary">#757575</color>
     <color name="background_color">#FFFFFF</color>
+    <color name="discharged_color">#FF5722</color> <!-- Example color -->
+    <color name="critical_color">#F44336</color> <!-- Example color -->
+    <color name="stable_color">#4CAF50</color> <!-- Example color -->
+    <color name="under_observation_color">#FFC107</color> <!-- Example color -->
+
+
+
 
 
 </resources>

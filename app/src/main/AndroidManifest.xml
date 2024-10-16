@@ -18,6 +18,9 @@
         <activity android:name=".RegisterActivity" android:exported="true"/>
         <activity android:name=".ScheduleActivity" android:exported="true"/>
 
+        <!-- Add the MedicalAnalyticsActivity here -->
+        <activity android:name=".MedicalAnalyticsActivity" android:exported="true"/>
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">
