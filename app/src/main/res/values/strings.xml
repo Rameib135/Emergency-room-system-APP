@@ -61,5 +61,11 @@
     <string name="stable_patients_image">Icon for stable patients</string>
     <string name="under_observation_image">Icon for patients under observation</string>
     <string name="discharged_patients_image">Icon for discharged patients</string>
+    <string name="observation_patients">Under Observation Patients</string>
+    <string name="avg_stay_duration">Average Stay Duration</string>
+    <string name="generate_pdf">Generate PDF Report</string>
+
+    <string name="patient_analytics">Patient Analytics</string>
+
 
 </resources>

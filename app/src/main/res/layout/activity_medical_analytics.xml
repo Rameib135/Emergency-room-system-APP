@@ -1,82 +1,88 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="#F5F5F5">
+    android:background="@color/light_gray_background">
 
-    <!-- Header for Medical Analytics -->
-    <TextView
-        android:id="@+id/textViewAnalyticsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Patient Analytics"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="24dp" />
-
-    <!-- Critical Patients Section -->
     <LinearLayout
-        android:id="@+id/layoutCritical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp"
-        android:layout_below="@id/textViewAnalyticsTitle"
-        android:layout_marginBottom="16dp">
+        android:orientation="vertical">
 
+        <!-- Title for Medical Analytics -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Patient Analytics"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_text"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="16dp" />
+
+        <!-- Critical Patients Count -->
         <TextView
             android:id="@+id/textViewCriticalCount"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Critical Patients: 0"
             android:textSize="18sp"
-            android:textColor="#FF0000" />
-    </LinearLayout>
+            android:textColor="@color/critical_color"
+            android:background="@drawable/rounded_background"
+            android:padding="16dp"
+            android:layout_marginBottom="10dp" />
 
-    <!-- Stable Patients Section -->
-    <LinearLayout
-        android:id="@+id/layoutStable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp"
-        android:layout_below="@id/layoutCritical"
-        android:layout_marginBottom="16dp">
-
+        <!-- Stable Patients Count -->
         <TextView
             android:id="@+id/textViewStableCount"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Stable Patients: 0"
             android:textSize="18sp"
-            android:textColor="#00FF00" />
-    </LinearLayout>
+            android:textColor="@color/stable_color"
+            android:background="@drawable/rounded_background"
+            android:padding="16dp"
+            android:layout_marginBottom="10dp" />
 
-    <!-- Under Observation Patients Section -->
-    <LinearLayout
-        android:id="@+id/layoutObservation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp"
-        android:layout_below="@id/layoutStable"
-        android:layout_marginBottom="16dp">
-
+        <!-- Under Observation Patients Count -->
         <TextView
             android:id="@+id/textViewObservationCount"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Under Observation Patients: 0"
             android:textSize="18sp"
-            android:textColor="#0000FF" />
-    </LinearLayout>
+            android:textColor="@color/under_observation_color"
+            android:background="@drawable/rounded_background"
+            android:padding="16dp"
+            android:layout_marginBottom="20dp" />
 
-</RelativeLayout>
+        <!-- BarChart for Patient Status -->
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/statusBarChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- PieChart for In Hospital/Discharged -->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/roomStatusPieChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Button to generate PDF report -->
+        <Button
+            android:id="@+id/buttonGeneratePdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate PDF Report"
+            android:onClick="onGeneratePdfButtonClick"
+            android:backgroundTint="@color/primary_button"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp" />
+
+    </LinearLayout>
+</ScrollView>

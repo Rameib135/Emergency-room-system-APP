@@ -22,6 +22,18 @@
     <color name="critical_color">#F44336</color> <!-- Example color -->
     <color name="stable_color">#4CAF50</color> <!-- Example color -->
     <color name="under_observation_color">#FFC107</color> <!-- Example color -->
+    <color name="observation_color">#1976D2</color>
+    <color name="pdf_button_color">#FF5722</color> <!-- Custom color for the PDF button -->
+    <!-- Primary colors for text and buttons -->
+    <color name="secondary_text">#666666</color> <!-- Lighter gray for secondary text -->
+    <color name="primary_button">#FF5722</color> <!-- Orange for buttons -->
+    <!-- Custom background for rounded elements -->
+    <color name="rounded_background">#FFFFFF</color> <!-- White background for analytics cards -->
+    <!-- Divider colors -->
+    <color name="divider_color">#BDBDBD</color> <!-- Light gray for dividers -->
+
+
+    ->
 
 
 
